@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCare - Digital Healthcare Reimbursement System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .animated-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3b82f6;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        .animated-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .solution-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .solution-card:hover {
+            border-left-color: #3b82f6;
+            transform: translateX(5px);
+        }
+        /* Loading animation */
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Success animation */
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #4CAF50;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke: #4CAF50;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        /* Form transition */
+        .form-container {
+            transition: all 0.3s ease;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Logo styling */
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+        /* Home link styling */
+        .home-link {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .home-link:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <!-- Clickable logo and title -->
+                        <a href="#home" class="home-link">
+                            <!-- Replace the src with your actual logo image path -->
+                            <img src="logosmart.png" alt="SmartCare Logo" class="logo-img h-40">
+                           
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#overview" class="animated-underline text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Overview</a>
+                    <a href="#solutions" class="animated-underline text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Solutions</a>
+                    <a href="#benefits" class="animated-underline text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Benefits</a>
+                    <a href="#contact" class="animated-underline text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                    <a href="#demo" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-300">Request Demo</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-500 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Home) -->
+    <section id="home" class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+            <div class="grid md:grid-cols-1 gap-12 items-center text-center">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Revolutionizing Healthcare Reimbursement</h1>
+                    <p class="text-lg md:text-xl opacity-90 mb-8">SmartCare is a cutting-edge digital platform that transforms healthcare reimbursement processes, making them faster, more transparent, and patient-centric.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#demo" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md text-lg font-semibold transition duration-300 text-center">Request Demo</a>
+                        <a href="#solutions" class="border-2 border-white hover:bg-white hover:bg-opacity-10 px-6 py-3 rounded-md text-lg font-semibold transition duration-300 text-center">Our Solutions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Digital Transformation for Healthcare Reimbursement</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">SmartCare modernizes the traditional healthcare reimbursement system by leveraging digital technologies to create a seamless, efficient, and transparent experience for all stakeholders.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md transition duration-300 card-hover">
+                    <div class="feature-icon bg-blue-100 text-blue-600">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Streamlined Processes</h3>
+                    <p class="text-gray-600">Automated workflows reduce manual intervention, cutting processing times from weeks to days while minimizing errors.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md transition duration-300 card-hover">
+                    <div class="feature-icon bg-green-100 text-green-600">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Enhanced Security</h3>
+                    <p class="text-gray-600">Blockchain-based verification ensures tamper-proof records and secure transactions for all reimbursement claims.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md transition duration-300 card-hover">
+                    <div class="feature-icon bg-purple-100 text-purple-600">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Real-time Analytics</h3>
+                    <p class="text-gray-600">Comprehensive dashboards provide actionable insights into claim patterns, fraud detection, and financial forecasting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Solutions</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Discover the powerful solutions that make SmartCare the future of healthcare reimbursement systems.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm solution-card">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-blue-100 text-blue-600 p-3 rounded-lg mr-4">
+                            <i class="fas fa-lock text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Secure Portal</h3>
+                            <p class="text-gray-600 mt-2">Quick and secure access to requests with multi-factor authentication and granular access control.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm solution-card">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-green-100 text-green-600 p-3 rounded-lg mr-4">
+                            <i class="fas fa-robot text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">AI Fraud Detection</h3>
+                            <p class="text-gray-600 mt-2">Fewer errors, more trust thanks to our artificial intelligence that detects anomalies and potential fraud.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm solution-card">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-purple-100 text-purple-600 p-3 rounded-lg mr-4">
+                            <i class="fas fa-tachometer-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Dashboard</h3>
+                            <p class="text-gray-600 mt-2">Centralized tracking of files with real-time visualization of request status and key indicators.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm solution-card">
+                    <div class="flex items-start mb-4">
+                        <div class="bg-red-100 text-red-600 p-3 rounded-lg mr-4">
+                            <i class="fas fa-file-shield text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Protected Documents</h3>
+                            <p class="text-gray-600 mt-2">Maximum data security with end-to-end encryption and tamper-proof document archiving.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Transformative Benefits</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">SmartCare delivers measurable improvements across all aspects of healthcare reimbursement.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md transition duration-300 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 text-blue-600 p-3 rounded-full mr-4">
+                            <i class="fas fa-user-clock text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">For Patients</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                            <span>Faster reimbursement processing (from 30+ days to under 72 hours)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                            <span>24/7 access to claim status and history</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                            <span>Reduced paperwork and administrative burden</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-blue-500 mt-1 mr-2"></i>
+                            <span>Transparent communication at every step</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md transition duration-300 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 text-green-600 p-3 rounded-full mr-4">
+                            <i class="fas fa-hospital text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">For Providers</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Direct integration with hospital management systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Automated eligibility verification</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Faster payments with reduced reconciliation efforts</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Reduced claim rejection rates through pre-submission validation</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-md transition duration-300 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 text-purple-600 p-3 rounded-full mr-4">
+                            <i class="fas fa-landmark text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold">For Administrators</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                            <span>40% reduction in processing costs</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                            <span>Advanced fraud detection capabilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                            <span>Comprehensive audit trails and reporting</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-purple-500 mt-1 mr-2"></i>
+                            <span>Improved financial forecasting and budgeting</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl font-bold mb-2">90%</div>
+                    <div class="text-lg opacity-90">Reduction in Processing Time</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold mb-2">40%</div>
+                    <div class="text-lg opacity-90">Cost Savings</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold mb-2">99.9%</div>
+                    <div class="text-lg opacity-90">System Uptime</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-bold mb-2">95%</div>
+                    <div class="text-lg opacity-90">User Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Experience SmartCare</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Request a personalized demo to see how SmartCare can transform your healthcare reimbursement processes.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto bg-gray-50 rounded-xl shadow-md overflow-hidden p-8 md:p-10">
+                <!-- Form Container -->
+                <div id="form-container" class="form-container">
+                    <form id="demo-form">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Your name" required>
+                            </div>
+                            <div>
+                                <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">Organization</label>
+                                <input type="text" id="organization" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Your organization" required>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="your@email.com" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="+212 11 23 45 67 8" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">How Can We Help You?</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300" placeholder="Tell us about your needs..." required></textarea>
+                        </div>
+                        
+                        <div class="flex items-center mb-6">
+                            <input id="agree" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" required>
+                            <label for="agree" class="ml-2 block text-sm text-gray-700">
+                                I agree to the <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a> and <a href="#" class="text-blue-600 hover:underline">Terms of Service</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 shadow-md">
+                            Request Demo
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loading-state" class="hidden text-center py-8">
+                    <div class="loader"></div>
+                    <h3 class="text-xl font-semibold mt-4 text-gray-800">Processing your request...</h3>
+                    <p class="text-gray-600 mt-2">Please wait while we submit your information.</p>
+                </div>
+
+                <!-- Success State -->
+                <div id="success-state" class="hidden text-center py-8">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mt-6 text-gray-800">Request Submitted Successfully!</h3>
+                    <p class="text-gray-600 mt-4 max-w-md mx-auto">Thank you for your interest in SmartCare. Our team will contact you within 24 hours to schedule your demo.</p>
+                    <button id="new-request-btn" class="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300">
+                        Submit Another Request
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Have questions about SmartCare? Our team is ready to help.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                <!-- LinkedIn Card -->
+                <a href="https://www.linkedin.com/in/aimen-rahali-464509356/" target="_blank" rel="noopener noreferrer" class="linkedin-card bg-white p-8 rounded-xl shadow-md text-center hover:bg-blue-50 transition duration-300">
+                    <div class="bg-blue-100 text-blue-600 p-4 rounded-full inline-block mb-4">
+                        <i class="fab fa-linkedin-in text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Connect on LinkedIn</h3>
+                    <p class="text-gray-600">Follow us for updates and insights about SmartCare</p>
+                </a>
+                
+                <!-- Email Us Card -->
+                <div class="bg-white p-8 rounded-xl shadow-md text-center">
+                    <div class="bg-purple-100 text-purple-600 p-4 rounded-full inline-block mb-4">
+                        <i class="fas fa-envelope text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Email Us</h3>
+                    <p class="text-gray-600">yasmineelkadi0@gmail.com </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 SmartCare. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">English</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">Français</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">العربية</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL without page reload
+                    if (history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        location.hash = targetId;
+                    }
+                }
+            });
+        });
+
+        // Form submission handling with animations
+        const form = document.getElementById('demo-form');
+        const formContainer = document.getElementById('form-container');
+        const loadingState = document.getElementById('loading-state');
+        const successState = document.getElementById('success-state');
+        const newRequestBtn = document.getElementById('new-request-btn');
+
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                formContainer.classList.add('hidden');
+                loadingState.classList.remove('hidden');
+                
+                // Simulate API call with setTimeout
+                setTimeout(() => {
+                    // Hide loading state, show success state
+                    loadingState.classList.add('hidden');
+                    successState.classList.remove('hidden');
+                    
+                    // Scroll to success message
+                    successState.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Reset form (but keep it hidden)
+                    form.reset();
+                }, 2000); // 2 second delay to simulate network request
+            });
+        }
+
+        // New request button
+        if (newRequestBtn) {
+            newRequestBtn.addEventListener('click', function() {
+                successState.classList.add('hidden');
+                formContainer.classList.remove('hidden');
+                
+                // Scroll back to form
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+
+        // Mobile menu toggle (would need proper implementation)
+        const mobileMenuButton = document.querySelector('.md\\:hidden button');
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', function() {
+                alert('Mobile menu would open here in a complete implementation.');
+            });
+        }
+    </script>
+</body>
+</html>
